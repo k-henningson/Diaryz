@@ -17,10 +17,8 @@ export default function App() {
     setRemindersItems([...remindersItems, reminder]);
   };
 
-  const completeReminder = function (index) {
-    let remindersCopy = [...remindersItems];
-    remindersCopy.splice(index, 1);
-    setRemindersItems(remindersCopy);
+  const deleteReminder = function(id) {
+    setRemindersItems((prevRemindersItems) => prevRemindersItems.filter((reminder) => reminder.id !== id));
   };
 
   return (
@@ -28,12 +26,12 @@ export default function App() {
       <View style={styles.reminderWrapper}>
         <Text style={styles.reminderTitle}>Diaryz Reminders</Text>
         <View style={styles.reminders}>
-          {remindersItems.map((reminder, index) => {
+          {remindersItems.map((reminder) => {
             return (
               <Task
-                key={index}
+                key={reminder.id}
                 reminder={reminder}
-                completeReminder={() => completeReminder(index)}
+                deleteReminder={() => deleteReminder(reminder.id)}
               />
             );
           })}

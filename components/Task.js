@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Checkbox from "expo-checkbox";
 import { useState } from "react";
 
-export default function Task({ completeReminder, reminder }) {
+export default function Task({ deleteReminder, reminder }) {
   const [isChecked, setChecked] = useState(false);
 
   return (
@@ -19,7 +19,7 @@ export default function Task({ completeReminder, reminder }) {
           <Text style={styles.itemDate}>{reminder.date.toLocaleString()}</Text>
         </View>
       </View>
-      <TouchableOpacity onPress={() => completeReminder()}>
+      <TouchableOpacity onPress={() => deleteReminder()}>
         <View style={styles.delete}>
           <Text>❌</Text>
         </View>

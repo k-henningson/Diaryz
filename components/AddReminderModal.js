@@ -23,7 +23,7 @@ export default function AddReminderModal({
   };
 
   const closeModalAndSubmitReminder = function () {
-    handleAddReminder({ reminder, date });
+    handleAddReminder({ reminder, date, id: Math.floor(Math.random() * 1000000) });
     setModalVisible(false);
     setReminder(null);
   };
