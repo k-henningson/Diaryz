@@ -1,11 +1,59 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from "react";
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import Task from "./components/Task";
+import AddReminderModal from "./components/AddReminderModal";
 
 export default function App() {
+  const [remindersItems, setRemindersItems] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleAddReminder = function (reminder) {
+    setRemindersItems([...remindersItems, reminder]);
+  };
+
+  const completeReminder = function (index) {
+    let remindersCopy = [...remindersItems];
+    remindersCopy.splice(index, 1);
+    setRemindersItems(remindersCopy);
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <View style={styles.reminderWrapper}>
+        <Text style={styles.reminderTitle}>Diaryz Reminders</Text>
+        <View style={styles.reminders}>
+          {remindersItems.map((reminder, index) => {
+            return (
+              <Task
+                key={index}
+                reminder={reminder}
+                completeReminder={() => completeReminder(index)}
+              />
+            );
+          })}
+        </View>
+      </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.writeReminderWrapper}
+      >
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <View style={styles.addWrapper}>
+            <Text style={styles.addText}>+</Text>
+          </View>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
+      <AddReminderModal
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+        handleAddReminder={handleAddReminder}
+      />
     </View>
   );
 }
@@ -13,8 +61,38 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#E8EAED",
+  },
+  reminderWrapper: {
+    paddingTop: 80,
+    paddingHorizontal: 20,
+  },
+  reminderTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+  },
+  reminders: {
+    marginTop: 30,
+  },
+  writeReminderWrapper: {
+    position: "absolute",
+    bottom: 60,
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  addWrapper: {
+    width: 60,
+    height: 60,
+    backgroundColor: "#ffffff",
+    borderRadius: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "#c0c0c0",
+    borderWidth: 1,
+  },
+  addText: {
+    fontSize: 30,
   },
 });
