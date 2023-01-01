@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  KeyboardAvoidingView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -37,16 +36,11 @@ export default function App() {
           })}
         </View>
       </View>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.writeReminderWrapper}
-      >
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <TouchableOpacity  style={styles.writeReminderWrapper} onPress={() => setModalVisible(true)}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
         </TouchableOpacity>
-      </KeyboardAvoidingView>
       <AddReminderModal
         setModalVisible={setModalVisible}
         modalVisible={modalVisible}
