@@ -9,6 +9,7 @@ import {
   Platform,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 
 export default function AddReminderModal({
   modalVisible,
@@ -36,6 +37,15 @@ export default function AddReminderModal({
   const cancelModal = function () {
     setModalVisible(false);
     setReminder(null);
+  };
+
+  const showMode = (currentMode) => {
+    DateTimePickerAndroid.open({
+      value: date,
+      onChange,
+      mode: currentMode,
+      is24Hour: true,
+    });
   };
 
   return (
