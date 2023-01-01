@@ -14,7 +14,7 @@ export default function AddReminderModal({
   setModalVisible,
   handleAddReminder,
 }) {
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState(new Date(new Date().setHours(0,0,0,0)));
   const [reminder, setReminder] = useState();
 
   const onChange = (event, selectedDate) => {
